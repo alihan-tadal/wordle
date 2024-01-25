@@ -22,16 +22,18 @@ qt_add_qml_module(appWordle
         components/MWelcome.qml
         components/MBoard.qml
     
-    SOURCES cell.h cell.cpp
-    SOURCES userinteractor.h userinteractor.cpp
-    SOURCES gamemanager.h gamemanager.cpp
-    SOURCES boardmodel.h boardmodel.cpp
+    SOURCES
+        cell.h cell.cpp
+        userinteractor.h userinteractor.cpp
+        gamemanager.h gamemanager.cpp
+        boardmodel.h boardmodel.cpp
 
     RESOURCES
         assets/wordleLogoText.svg
         assets/wordleLogo.svg
         assets/statsIcon.png
         assets/howToPlay.png
+        resources/words.txt
 
 )
 

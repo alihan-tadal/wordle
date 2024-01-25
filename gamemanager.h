@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
+#include "boardmodel.h"
+
 class GameManager : public QObject
 {
     Q_OBJECT
@@ -14,17 +16,30 @@ public:
     explicit GameManager(QObject *parent = nullptr);
     void setHasActiveGame(bool hasActiveGame);
     Q_INVOKABLE bool hasActiveGame();
+    bool loadWords();
+    bool checkIfWordExists(QString word);
+    QString getRandomWord();
+    QString evaluateGuess(QString guess);
 
 
 public slots:
     void onStartGameRequested();
     void onExitGameRequested();
+    void onLetterPressed(QString letter);
+    void onBackspacePressed();
+    void onEnterPressed();
+    void onBoardIsFull();
 
 signals:
     void hasActiveGameChanged(bool hasActiveGame);
+    void gameWon();
+    void gameLost();
 
 private:
     bool m_hasActiveGame;
+    QHash<QString, int> m_words;
+    BoardModel *m_boardModel;
+    QString m_secretWord;
 };
 
 #endif // GAMEMANAGER_H

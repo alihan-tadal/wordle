@@ -6,6 +6,13 @@
 #include <QtQml/qqml.h>
 #include "cell.h"
 
+#define WORD_LENGTH 5
+#define GUESS_LENGTH 6
+
+#define GREEN_COLOR QColor("#6aaa64")
+#define YELLOW_COLOR QColor("#c9b458")
+#define GRAY_COLOR QColor("#787c7e")
+
 class BoardModel : public QAbstractTableModel
 {
     Q_OBJECT
@@ -25,7 +32,15 @@ public:
     virtual QHash<int, QByteArray> roleNames() const;
     void resetBoard();
 
+    void insertLetter(QString letter);
+
+    void removeLetter();
+    QString getGuess();
+    void lockGuess(QString evaluation);
+    
 signals:
+    void boardIsFull();
+    
 private:
     QVector<QVector<Cell *>> m_data;
 };

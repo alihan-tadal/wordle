@@ -24,7 +24,6 @@ Window {
         visible: GameManager.hasActiveGame ? true : false
     }
     
-
     MControls {
         id: controls
     }

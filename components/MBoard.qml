@@ -29,7 +29,7 @@ Rectangle {
                 }
                 Text {
                     anchors.centerIn: parent
-                    text: cellChar
+                    text: cellChar.toUpperCase()
                     font.pixelSize: 24
                     font.bold: true
                     color: isLocked ? "white" : "black"
