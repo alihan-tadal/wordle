@@ -16,22 +16,23 @@ qt_add_qml_module(appWordle
     VERSION 1.0
     QML_FILES
         main.qml
-        components/MBoard.qml
         components/MHeader.qml
         components/MDivider.qml
         components/MControls.qml
         components/MWelcome.qml
-    # SOURCES game.h game.cpp
+        components/MBoard.qml
+    
     SOURCES cell.h cell.cpp
-    SOURCES board.h board.cpp
     SOURCES userinteractor.h userinteractor.cpp
     SOURCES gamemanager.h gamemanager.cpp
+    SOURCES boardmodel.h boardmodel.cpp
 
     RESOURCES
         assets/wordleLogoText.svg
         assets/wordleLogo.svg
         assets/statsIcon.png
         assets/howToPlay.png
+
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

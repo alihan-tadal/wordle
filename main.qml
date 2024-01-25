@@ -1,6 +1,6 @@
 import QtQuick
-import Board
 import GameManager
+
 Window {
     id: window
     width: 720
@@ -18,11 +18,13 @@ Window {
         id: welcome
         visible: GameManager.hasActiveGame ? false : true
     }
+
     MBoard {
-        id: board
-        visible: GameManager.hasActiveGame ? true
+        id: saffet
+        visible: GameManager.hasActiveGame ? true : false
     }
-        
+    
+
     MControls {
         id: controls
     }

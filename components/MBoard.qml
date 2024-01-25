@@ -1,10 +1,10 @@
 import  QtQuick
-import Board
+import BoardModel
 
 Rectangle {
         id: someRect
-        width: Board.boardWidthInPx()
-        height: Board.boardHeightInPx()
+        width: 400
+        height: 400
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: header.bottom
         anchors.topMargin: 48
@@ -12,7 +12,8 @@ Rectangle {
          TableView {
             id: tableView
             anchors.fill: parent
-            model: Board
+            model: BoardModel 
+
             rowSpacing: 12
             columnSpacing: 12
             delegate: Rectangle {

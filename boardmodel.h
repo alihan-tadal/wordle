@@ -3,34 +3,31 @@
 
 #include <QObject>
 #include <QAbstractTableModel>
-#include "cell.h"
 #include <QtQml/qqml.h>
-class Board : public QAbstractTableModel
+#include "cell.h"
+
+class BoardModel : public QAbstractTableModel
 {
     Q_OBJECT
-    // QML_ELEMENT
+
 public:
-    explicit Board(QObject *parent = nullptr);
-    enum BoardRoles {
+    explicit BoardModel(QObject *parent = nullptr);
+    enum BoardModelRoles {
         CellColorRole = Qt::UserRole + 1,
         CellCharRole,
         IsLockedRole,
         IsEmptyRole
     };
-signals:
 
-    // QAbstractItemModel interface
-public:
-    Q_INVOKABLE int boardWidthInPx() const;
-    Q_INVOKABLE int boardHeightInPx() const;
     int rowCount(const QModelIndex &parent) const;
     virtual int columnCount(const QModelIndex &parent) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const;
+    void resetBoard();
 
-    QString text() const;
+signals:
 private:
-    QVector<QVector<Cell *>> m_board;
+    QVector<QVector<Cell *>> m_data;
 };
 
 #endif // BOARD_H
