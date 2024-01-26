@@ -34,7 +34,7 @@ qt_add_qml_module(appWordle
         assets/statsIcon.png
         assets/howToPlay.png
         resources/words.txt
-
+        fonts/roboto/Roboto-Regular.ttf
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

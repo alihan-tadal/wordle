@@ -1,6 +1,6 @@
 import  QtQuick
 import BoardModel
-
+import GameManager
 Rectangle {
         id: someRect
         width: 400
@@ -8,7 +8,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: header.bottom
         anchors.topMargin: 48
-        color: "white"
+        color: GameManager.hasActiveGame ? "white" : "#e3e3e1"
          TableView {
             id: tableView
             anchors.fill: parent
@@ -34,6 +34,32 @@ Rectangle {
                     font.bold: true
                     color: isLocked ? "white" : "black"
                 }
+
+
             }
     }
+    // make transition animation when visible is changed
+    Behavior on visible {
+        // if visible is true, then make animation
+        SequentialAnimation {
+            NumberAnimation {
+                target: someRect
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: 500
+            }
+        }
+
+        // if visible is false, then make animation
+        SequentialAnimation {
+            NumberAnimation {
+                target: someRect
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 500
+            }
+        }
     }
+}

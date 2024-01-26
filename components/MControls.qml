@@ -1,6 +1,9 @@
 import QtQuick
+import QtQuick.Controls
+
 import UserInteractor
 import GameManager
+
 
  Row {
         id: control_row
@@ -28,7 +31,7 @@ import GameManager
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    
+                    howToPlayPopup.open()
                 }
             }
         }
@@ -55,4 +58,25 @@ import GameManager
                 
             }
         }
-    }
+
+        // create popup that shows how to play
+        Popup {
+            id: howToPlayPopup
+            modal: true
+            focus: true
+            anchors.centerIn: Overlay.overlay
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            enter: Transition {
+                NumberAnimation { property: "opacity"; from: 0.0; to: 1.0 ; duration: 360; easing.type: Easing.Linear}
+            }
+            exit: Transition {
+                NumberAnimation { property: "opacity"; from: 1.0; to: 0.0 ; duration: 360; easing.type: Easing.Linear}
+            }
+            contentItem: Rectangle {
+                anchors.fill: parent
+                Image {
+                source: "../assets/howToPlay.png"
+            }
+            }
+        }
+}

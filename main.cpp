@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QFontDatabase>
 
 #include "userinteractor.h"
 #include "gamemanager.h"
@@ -11,7 +12,10 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    
+    // read .ttf file and make it default font
+    QFontDatabase::addApplicationFont(":/fonts/Roboto-Regular.ttf");
+    app.setFont(QFont("Roboto"));
+
     GameManager *gameManager = new GameManager();
     UserInteractor *userInteractor = new UserInteractor();
     BoardModel *boardModel = new BoardModel(gameManager);
