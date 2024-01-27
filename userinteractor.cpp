@@ -23,7 +23,7 @@ bool UserInteractor::eventFilter(QObject *obj, QEvent *event)
             emit enterPressed();
         } else if (keyEvent->key() >= Qt::Key_A && keyEvent->key() <= Qt::Key_Z) {
             qDebug() << "UserInteractor::eventFilter() called. Key pressed: " << keyEvent->text();
-            emit letterPressed(keyEvent->text());
+            emit letterPressed(keyEvent->text().toLower());
         }
     }
     return QObject::eventFilter(obj, event);

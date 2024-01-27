@@ -1,6 +1,7 @@
 #include <QAbstractTableModel>
 #include <QColor>
 #include <QDebug>
+#include <QThread>
 #include "boardmodel.h"
 #include "cell.h"
 
@@ -186,15 +187,22 @@ void BoardModel::lockGuess(QString evaluation)
 
     if (firstUnlockedRow != -1) {
         for (int i = 0; i < WORD_LENGTH; i++) {
-            if (evaluation[i] == 'G') {
-                m_data[firstUnlockedRow][i]->setCellColor(GREEN_COLOR);
-            } else if (evaluation[i] == 'Y') {
-                m_data[firstUnlockedRow][i]->setCellColor(YELLOW_COLOR);
-            } else if (evaluation[i] == 'X') {
-                m_data[firstUnlockedRow][i]->setCellColor(GRAY_COLOR);
-            }
             m_data[firstUnlockedRow][i]->setIsLocked(true);
             emit dataChanged(index(firstUnlockedRow, i), index(firstUnlockedRow, i));
+            if (evaluation[i] == 'G') {
+                m_data[firstUnlockedRow][i]->setCellColor(GREEN_COLOR);
+                emit dataChanged(index(firstUnlockedRow, i), index(firstUnlockedRow, i));
+                // sleep for 1 second
+                
+            } else if (evaluation[i] == 'Y') {
+                m_data[firstUnlockedRow][i]->setCellColor(YELLOW_COLOR);
+                emit dataChanged(index(firstUnlockedRow, i), index(firstUnlockedRow, i));
+                // sleep for 1 second
+               
+            } else if (evaluation[i] == 'X') {
+                m_data[firstUnlockedRow][i]->setCellColor(GRAY_COLOR);
+                emit dataChanged(index(firstUnlockedRow, i), index(firstUnlockedRow, i));            
+            }
         }
     }
 

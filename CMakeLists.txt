@@ -21,6 +21,7 @@ qt_add_qml_module(appWordle
         components/MControls.qml
         components/MWelcome.qml
         components/MBoard.qml
+        components/MCell.qml
     
     SOURCES
         cell.h cell.cpp
