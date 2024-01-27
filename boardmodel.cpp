@@ -206,19 +206,6 @@ void BoardModel::lockGuess(QString evaluation)
         }
     }
 
-    if (evaluation == "GGGGG") {
-        // fill remaining parts of the board with green
-        for (int i = firstUnlockedRow + 1; i < GUESS_LENGTH; i++) {
-            for (int j = 0; j < WORD_LENGTH; j++) {
-                m_data[i][j]->setCellColor(GREEN_COLOR);
-                m_data[i][j]->setIsLocked(true);
-                // set cell to the answer letter
-                m_data[i][j]->setCellChar(m_data[firstUnlockedRow][j]->cellChar());
-                emit dataChanged(index(i, j), index(i, j));
-            }
-        }
-    }
-
     if (firstUnlockedRow == GUESS_LENGTH - 1) {
         qDebug() << "BoardModel::lockGuess() called. Board is full.";
         emit boardIsFull();

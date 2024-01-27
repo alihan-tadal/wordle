@@ -16,7 +16,7 @@ Rectangle {
         id: innerText
         anchors.centerIn: parent
         text: cellChar.toUpperCase()
-        font.pixelSize: 24
+        font.pixelSize: 36
         font.bold: true
     }
 

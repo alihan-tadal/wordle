@@ -5,6 +5,9 @@ set(CMAKE_PREFIX_PATH "/home/alihantadal/Qt/6.6.1/gcc_64/lib/cmake")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+
+
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 qt_add_executable(appWordle
@@ -22,7 +25,8 @@ qt_add_qml_module(appWordle
         components/MWelcome.qml
         components/MBoard.qml
         components/MCell.qml
-    
+        components/MKey.qml
+        components/MKeyboard.qml
     SOURCES
         cell.h cell.cpp
         userinteractor.h userinteractor.cpp

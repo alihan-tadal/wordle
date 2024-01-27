@@ -20,6 +20,7 @@ public:
     bool checkIfWordExists(QString word);
     QString getRandomWord();
     QString evaluateGuess(QString guess);
+    void updateKeyboard(QString evaluation, QString guess);
 
 
 public slots:
@@ -32,8 +33,10 @@ public slots:
 
 signals:
     void hasActiveGameChanged(bool hasActiveGame);
+    void keyColorUpdated(QColor color, QString letter);
     void gameWon();
     void gameLost();
+
 
 private:
     bool m_hasActiveGame;

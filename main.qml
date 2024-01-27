@@ -1,5 +1,6 @@
 import QtQuick
 import GameManager
+import UserInteractor
 
 Window {
     id: window
@@ -9,8 +10,8 @@ Window {
     }
     // set default font
     
-    width: 720
-    height: 1044
+    width: 540
+    height: 900
     visible: true
     title: qsTr("Wordle")
     color: GameManager.hasActiveGame ? "white":"#e3e3e1"
@@ -27,10 +28,15 @@ Window {
     }
 
     MBoard {
-        id: saffet
+        id: board
         visible: GameManager.hasActiveGame ? true : false
     }
-    
+
+    MKeyboard {
+        id: keyboard
+        visible: GameManager.hasActiveGame ? true : false
+    }
+
     MControls {
         id: controls
     }

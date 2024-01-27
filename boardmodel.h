@@ -30,10 +30,9 @@ public:
     virtual int columnCount(const QModelIndex &parent) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const;
+    
     void resetBoard();
-
     void insertLetter(QString letter);
-
     void removeLetter();
     QString getGuess();
     void lockGuess(QString evaluation);

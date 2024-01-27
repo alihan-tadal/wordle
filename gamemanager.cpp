@@ -86,6 +86,7 @@ void GameManager::onEnterPressed()
         {
             qDebug() << "Word exists. Evaluating...";
             QString evaluation = evaluateGuess(guess);
+            updateKeyboard(evaluation, guess);
             m_boardModel->lockGuess(evaluation);
             if (evaluation == "GGGGG")
             {
@@ -204,4 +205,25 @@ QString GameManager::evaluateGuess(QString guess)
     }
 
     return evaluation;
+}
+
+void GameManager::updateKeyboard(QString evaluation, QString guess)
+{
+    qDebug() << "GameManager::updateKeyboard() called.";
+    // update keyboard
+    for (int i = 0; i < WORD_LENGTH; i++)
+    {
+        if (evaluation[i] == 'G')
+        {
+            emit keyColorUpdated(GREEN_COLOR, guess[i].toUpper());
+        }
+        else if (evaluation[i] == 'Y')
+        {
+            emit keyColorUpdated(YELLOW_COLOR, guess[i].toUpper());
+        }
+        else
+        {
+            emit keyColorUpdated(GRAY_COLOR, guess[i].toUpper());
+        }
+    }
 }
