@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Stats
 import GameManager
 import UserInteractor
 

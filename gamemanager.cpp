@@ -11,8 +11,8 @@ GameManager::GameManager(QObject *parent)
     : QObject{parent}
 {
     qDebug() << "GameManager::GameManager() called.";
+    
     m_hasActiveGame = false;
-    // try to load words from file
     if (!loadWords())
     {
         qDebug() << "GameManager::GameManager() called. Failed to load words.";
@@ -27,9 +27,9 @@ void GameManager::onStartGameRequested()
     {
         qDebug() << "GameManager::onStartGameRequested() called. Creating new game.";
         setHasActiveGame(true);
+        qDebug() << "GameManager::onStartGameRequested() called. Getting board model.";
         m_boardModel = qobject_cast<BoardModel *>(children().first());
-        // write row count
-        qDebug() << "GameManager::onStartGameRequested() called with row count: " << m_boardModel->rowCount(QModelIndex());
+        m_stats = qobject_cast<Stats *>(children().last());
         m_boardModel->resetBoard();
         m_secretWord = getRandomWord();
         qDebug() << "GameManager::onStartGameRequested() called. Secret word is: " << m_secretWord;
@@ -47,6 +47,7 @@ void GameManager::onExitGameRequested()
         m_secretWord = "";
         m_isGameWon = false;
         m_isGameLost = false;
+        m_numGuesses = 0;
         m_greens.clear();
     }
 }
@@ -92,11 +93,22 @@ void GameManager::onEnterPressed()
             QString evaluation = evaluateGuess(guess);
             updateKeyboard(evaluation, guess);
             m_boardModel->lockGuess(evaluation);
+            m_numGuesses++;
             if (evaluation == "GGGGG")
             {
                 qDebug() << "You won!";
                 emit gameWon();
                 m_isGameWon = true;
+                m_stats->incrementWins();
+                m_stats->incrementGamePlays();
+                m_stats->incrementStreak();
+                m_stats->updateWinDistribution(m_numGuesses);
+                if (m_stats->streak() > m_stats->maxStreak())
+                {
+                    m_stats->setMaxStreak(m_stats->streak());
+                }
+                m_stats->setLastResult('W');
+                m_stats->makeItPermanent();
             }
         }
         else
@@ -112,6 +124,16 @@ void GameManager::onBoardIsFull()
     qDebug() << "GameManager::onBoardIsFull() called. Game lost.";
     emit gameLost(m_secretWord);
     m_isGameLost = true;
+    // update stats
+    m_stats->incrementLosses();
+    m_stats->incrementGamePlays();
+    if (m_stats->streak() > m_stats->maxStreak())
+    {
+        m_stats->setMaxStreak(m_stats->streak());
+    }
+    m_stats->setStreak(0);
+    m_stats->setLastResult('L');
+    m_stats->makeItPermanent();
 }
 
 /* Public Methods */
@@ -130,7 +152,6 @@ bool GameManager::hasActiveGame()
     qDebug() << "GameManager::hasActiveGame() called.";
     return m_hasActiveGame;
 }
-
 
 bool GameManager::isGameWon()
 {

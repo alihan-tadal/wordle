@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
+#include "stats.h"
 #include "boardmodel.h"
 
 class GameManager : public QObject
@@ -66,17 +67,23 @@ private:
     // Used to check if game is lost. If board is full and no word is found, game is lost.
     bool m_isGameLost = false;
     
+    int m_numGuesses = 0;
+
     // This is where all the words are stored. Used hashtable to faster check if word exists.
     QHash<QString, int> m_words;
     
-    // Reference to the board model. GameManager communicates with board model through this.
-    BoardModel *m_boardModel;
 
     // Where the secret word for each session is stored. When game ended, it will be empty string.
     QString m_secretWord; 
     
     // Important when updating keyboard to not update green back to yellow.
     QList<QString> m_greens; 
+
+    // Reference to the board model. GameManager communicates with board model through this.
+    BoardModel *m_boardModel;
+
+    // Reference to stats object. GameManager communicates with stats object through this.
+    Stats *m_stats;
 };
 
 #endif // GAMEMANAGER_H

@@ -35,6 +35,7 @@ qt_add_qml_module(appWordle
         userinteractor.h userinteractor.cpp
         gamemanager.h gamemanager.cpp
         boardmodel.h boardmodel.cpp
+        stats.h stats.cpp
 
     RESOURCES
         assets/wordleLogoText.svg
@@ -42,6 +43,7 @@ qt_add_qml_module(appWordle
         assets/statsIcon.png
         assets/howToPlay.png
         resources/words.txt
+        resources/stats.json
         fonts/roboto/Roboto-Regular.ttf
 )
 

@@ -19,7 +19,9 @@ int main(int argc, char *argv[])
     GameManager *gameManager = new GameManager();
     UserInteractor *userInteractor = new UserInteractor();
     BoardModel *boardModel = new BoardModel(gameManager);
+    Stats *stats = new Stats(gameManager);
 
+    qmlRegisterSingletonInstance("Stats", 1, 0, "Stats", stats);
     qmlRegisterSingletonInstance("BoardModel", 1, 0, "BoardModel", boardModel);
     qmlRegisterSingletonInstance("UserInteractor", 1, 0, "UserInteractor", userInteractor);
     qmlRegisterSingletonInstance("GameManager", 1, 0, "GameManager", gameManager);
