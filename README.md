@@ -1,6 +1,6 @@
 # Wordle Clone
 
-This is a Wordle clone implemented using C++ and QML. Oirignal Wordle game can be found [here](https://www.nytimes.com/games/wordle/index.html).
+This is a Wordle clone implemented using C++ and QML. Original Wordle game can be found [here](https://www.nytimes.com/games/wordle/index.html).
 
 
 ## Quick Demo
@@ -46,7 +46,6 @@ And QML files:
 ## Getting Started
 
 To run the Wordle clone, follow these steps:
-
 
 1. Clone the repository: `git clone https://github.com/alihan-tadal/wordle.git`
 2. You may wish to change the word list in `resources/words.txt` to suit your needs. Make sure all words are in lowercase and are separated by newlines.
