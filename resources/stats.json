@@ -1,9 +1,9 @@
 {
-    "gamePlays": 7,
-    "gameWins": 5,
-    "gameLosses": 2,
+    "gamePlays": 0,
+    "gameWins": 0,
+    "gameLosses": 0,
     "lastResult": "L",
     "streak": 0,
     "maxStreak": 0,
-    "winDistribution": [1, 1, 3, 0, 0, 0]
+    "winDistribution": [0, 0, 0, 0, 0, 0]
 }

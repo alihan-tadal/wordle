@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QFontDatabase>
+#include <QIcon>
 
 #include "userinteractor.h"
 #include "gamemanager.h"
@@ -12,8 +13,10 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    // change app logo
+    app.setWindowIcon(QIcon(":/Wordle/assets/wordleLogo.svg"));
     // read .ttf file and make it default font
-    QFontDatabase::addApplicationFont(":/fonts/Roboto-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/Wordle/fonts/Roboto-Regular.ttf");
     app.setFont(QFont("Roboto"));
 
     GameManager *gameManager = new GameManager();

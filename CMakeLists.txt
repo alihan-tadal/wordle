@@ -38,9 +38,9 @@ qt_add_qml_module(appWordle
         stats.h stats.cpp
 
     RESOURCES
-        assets/wordleLogoText.svg
         assets/wordleLogo.svg
         assets/statsIcon.png
+        assets/wordleLogoText.svg
         assets/howToPlay.png
         resources/words.txt
         resources/stats.json
