@@ -30,7 +30,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                statsPopup.open()
+                stats.open()
             }
         }
     }

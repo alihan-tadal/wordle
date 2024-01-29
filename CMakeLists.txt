@@ -27,6 +27,9 @@ qt_add_qml_module(appWordle
         components/MCell.qml
         components/MKey.qml
         components/MKeyboard.qml
+        components/MPopup.qml
+        components/MStats.qml
+        
     SOURCES
         cell.h cell.cpp
         userinteractor.h userinteractor.cpp

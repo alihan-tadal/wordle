@@ -45,13 +45,16 @@ void GameManager::onExitGameRequested()
         setHasActiveGame(false);
         m_boardModel->resetBoard();
         m_secretWord = "";
+        m_isGameWon = false;
+        m_isGameLost = false;
+        m_greens.clear();
     }
 }
 
 void GameManager::onLetterPressed(QString letter)
 {
     qDebug() << "GameManager::onLetterPressed() called.";
-    if (m_hasActiveGame)
+    if (m_hasActiveGame && (!m_isGameWon && !m_isGameLost)) // after game is won or lost, no more letters can be added
     {
         qDebug() << "GameManager::onLetterPressed() called. Adding letter to game.";
         m_boardModel->insertLetter(letter);
@@ -61,7 +64,7 @@ void GameManager::onLetterPressed(QString letter)
 void GameManager::onBackspacePressed()
 {
     qDebug() << "GameManager::onBackspacePressed() called.";
-    if (m_hasActiveGame)
+    if (m_hasActiveGame && (!m_isGameWon && !m_isGameLost)) // after game is won or lost, no more letters can be removed
     {
         qDebug() << "GameManager::onBackspacePressed() called. Removing letter from game.";
         m_boardModel->removeLetter();
@@ -71,7 +74,7 @@ void GameManager::onBackspacePressed()
 void GameManager::onEnterPressed()
 {
     qDebug() << "GameManager::onEnterPressed() called.";
-    if (m_hasActiveGame)
+    if (m_hasActiveGame && (!m_isGameWon && !m_isGameLost)) // after game is won or lost, no more checks can be made
     {
         qDebug() << "GameManager::onEnterPressed() called. Checking if word exists.";
         QString guess = m_boardModel->getGuess();
@@ -80,6 +83,7 @@ void GameManager::onEnterPressed()
         if (guess.length() < WORD_LENGTH)
         {
             qDebug() << "GameManager::onEnterPressed() called. Guess is too short.";
+            emit guessIsTooShort();
             return;
         }
         if (checkIfWordExists(guess))
@@ -91,22 +95,23 @@ void GameManager::onEnterPressed()
             if (evaluation == "GGGGG")
             {
                 qDebug() << "You won!";
-                // push some notification.
+                emit gameWon();
+                m_isGameWon = true;
             }
         }
         else
         {
             qDebug() << "Word does not exist. Try Again";
-            // push some notification.
+            emit tryAnotherWord();
         }
-        // check if word exists
     }
 }
 
 void GameManager::onBoardIsFull()
 {
     qDebug() << "GameManager::onBoardIsFull() called. Game lost.";
-    emit gameLost();
+    emit gameLost(m_secretWord);
+    m_isGameLost = true;
 }
 
 /* Public Methods */
@@ -124,6 +129,19 @@ bool GameManager::hasActiveGame()
 {
     qDebug() << "GameManager::hasActiveGame() called.";
     return m_hasActiveGame;
+}
+
+
+bool GameManager::isGameWon()
+{
+    qDebug() << "GameManager::isGameWon() called.";
+    return m_isGameWon;
+}
+
+bool GameManager::isGameLost()
+{
+    qDebug() << "GameManager::isGameLost() called.";
+    return m_isGameLost;
 }
 
 bool GameManager::loadWords()
@@ -210,20 +228,30 @@ QString GameManager::evaluateGuess(QString guess)
 void GameManager::updateKeyboard(QString evaluation, QString guess)
 {
     qDebug() << "GameManager::updateKeyboard() called.";
-    // update keyboard
     for (int i = 0; i < WORD_LENGTH; i++)
     {
         if (evaluation[i] == 'G')
         {
+            qDebug() << "GameManager::updateKeyboard() called. Updating green letter." << guess[i];
+            m_greens.append(guess[i]);
             emit keyColorUpdated(GREEN_COLOR, guess[i].toUpper());
         }
-        else if (evaluation[i] == 'Y')
-        {
-            emit keyColorUpdated(YELLOW_COLOR, guess[i].toUpper());
+        else if (evaluation[i] == 'Y') // Prevent green letter to be yellow back.
+        {   
+            qDebug() << "GameManager::updateKeyboard() called. Updating yellow letter." << guess[i];
+            // dont update if m_greens contains guess[i]
+            if (!m_greens.contains(guess[i]))
+            {
+                emit keyColorUpdated(YELLOW_COLOR, guess[i].toUpper());
+            }
         }
         else
         {
+            qDebug() << "GameManager::updateKeyboard() called. Updating gray letter." << guess[i];
             emit keyColorUpdated(GRAY_COLOR, guess[i].toUpper());
         }
     }
+
+    // display m_greens 
+    qDebug() << "GameManager::updateKeyboard() called. m_greens contains: " << m_greens;
 }

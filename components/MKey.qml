@@ -52,6 +52,15 @@ Rectangle {
             }   
         }
     }
+    Connections {
+        target: UserInteractor;
+        function onExitGameRequested() {
+            color = defaultColor
+        }
+        function onStartGameRequested() {
+            color = defaultColor
+        }
+    }
 
     Behavior on color {
         ColorAnimation {

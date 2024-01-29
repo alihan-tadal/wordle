@@ -65,6 +65,7 @@ import GameManager
             modal: true
             focus: true
             anchors.centerIn: Overlay.overlay
+            width: 600
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
             enter: Transition {
                 NumberAnimation { property: "opacity"; from: 0.0; to: 1.0 ; duration: 360; easing.type: Easing.Linear}

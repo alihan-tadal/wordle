@@ -2,6 +2,7 @@ import  QtQuick
 import Qt3D.Animation
 import Qt3D.Core
 import QtQuick.Timeline 
+import GameManager
 
 
 Rectangle {
@@ -118,6 +119,39 @@ Rectangle {
             }
         }
     }
+
+    SequentialAnimation {
+        id: seqAnim
+        PauseAnimation { duration: 10}
+        SpringAnimation {
+            target: rect;
+            property: "x";
+            to: x-10;
+            spring: 100;
+            damping: 0.3;
+            mass: 1;
+            easing.type: Easing.InOutQuad;
+        }
+
+    }
+
+
+    Connections {
+        target: GameManager
+        function onTryAnotherWord() {
+            if (getState() === "UF" && (!seqAnim.running)) {
+                rect.x += 10;
+                seqAnim.restart();
+            }
+        }
+        function onGuessIsTooShort() {
+            if (getState() === "UF" && (!seqAnim.running)) {
+                rect.x += 10;
+                seqAnim.restart();
+            }
+        }
+    }
+
 
     /* Javascript Part */
     function getState() {

@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import GameManager
 import UserInteractor
 
@@ -10,7 +11,7 @@ Window {
     }
     // set default font
     
-    width: 540
+    width: 720
     height: 900
     visible: true
     title: qsTr("Wordle")
@@ -39,5 +40,14 @@ Window {
 
     MControls {
         id: controls
+    }
+
+    MStats {
+        id: stats
+    }
+
+    MPopup {
+        // This is for guesses that are not in the word list
+        id: mpopup
     }
 }
